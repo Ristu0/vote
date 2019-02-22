@@ -5,16 +5,16 @@
 <div class="addVote">
     <h2>发布新投票</h2>
     <div class="vote-content">
-        <form method="post" action="subject!save.action" onsubmit="return validate();">
+        <form method="post" action="${pageContext.request.contextPath}/vote/addVote" onsubmit="return validate();">
             <dl>
                 <dt>投票内容：</dt>
                 <dd>
-                    <input id="voteTitle" type="text" class="input-text" name="subject.title" value="" title="填入投票内容"/>
+                    <input id="voteTitle" type="text" class="input-text" name="vsTitle" value="" title="填入投票内容"/>
                 </dd>
                 <dt>投票类型：</dt>
                 <dd>
-                    <input type="radio" name="subject.type" value="1" checked=checked/>单选
-                    <input type="radio" name="subject.type" value="2"/>多选
+                    <input type="radio" name="vsType" value="0" checked=checked/>单选
+                    <input type="radio" name="vsType" value="1"/>多选
                 </dd>
                 <dt>投票选项：</dt>
                 <dd id="voteoptions">

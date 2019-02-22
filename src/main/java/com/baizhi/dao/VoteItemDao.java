@@ -1,9 +1,11 @@
 package com.baizhi.dao;
 
 import com.baizhi.entity.VoteItem;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface VoteItemDao {
     /**
      * 获得VoteItem数据的总行数

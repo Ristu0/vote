@@ -1,9 +1,12 @@
 package com.baizhi.dao;
 
 import com.baizhi.entity.VoteOption;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface VoteOptionDao {
     /**
      * 获得VoteOption数据的总行数
@@ -74,4 +77,9 @@ public interface VoteOptionDao {
      * @return
      */
     int updateNonEmptyVoteOptionById(VoteOption enti);
+
+    /**
+     * 添加一个投票任务的选项
+     */
+    void insertOption(@Param("options") String[] options, @Param("vsId") Integer vsId);
 }
