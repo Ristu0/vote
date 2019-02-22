@@ -58,6 +58,12 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
         return voteSubjectDao.updateNonEmptyVoteSubjectById(enti);
     }
 
+    @Override
+    public VoteSubject selectById(Integer id) {
+        VoteSubject voteSubject = voteSubjectDao.selectById(id);
+        return voteSubject;
+    }
+
     public VoteSubjectDao getVoteSubjectDao() {
         return this.voteSubjectDao;
     }

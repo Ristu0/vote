@@ -3,9 +3,13 @@
 <mapper namespace="com.baizhi.dao.VoteSubjectDao">
     <!-- VoteSubject的resultMap,column是给数据库列起的别名,它对应property类的属性-->
     <resultMap id="result_VoteSubject_Map" type="com.baizhi.entity.VoteSubject">
-        <id column="vs_id" property="vsId"/>
-        <result column="vs_title" property="vsTitle"/>
-        <result column="vs_type" property="vsType"/>
+        <id column="sid" property="vsId"/>
+        <result column="stitle" property="vsTitle"/>
+        <result column="stype" property="vsType"/>
+        <collection property="voteOptions" ofType="VoteOption">
+            <id column="oid" property="voId"></id>
+            <result property="voOption" column="ooption"></result>
+        </collection>
     </resultMap>
 
     <!-- 数据库中表名为:vote_subject的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
@@ -19,14 +23,14 @@
     <select id="getVoteSubjectRowCount" resultType="java.lang.Long">
         select count(vs_id) from vote_subject
     </select>
-    <!-- 获得类名为:VoteSubject对应数据库中表的数据集合 -->
+    <!--&lt;!&ndash; 获得类名为:VoteSubject对应数据库中表的数据集合 &ndash;&gt;
     <select id="selectVoteSubject" resultMap="result_VoteSubject_Map">
         select
         <include refid="vote_subject_Column"/>
         from vote_subject
     </select>
 
-    <!-- 获得一个VoteSubject对象,以参数VoteSubject对象中不为空的属性作为条件进行查询-->
+    &lt;!&ndash; 获得一个VoteSubject对象,以参数VoteSubject对象中不为空的属性作为条件进行查询&ndash;&gt;
     <select id="selectVoteSubjectByObj" parameterType="com.baizhi.entity.VoteSubject"
             resultMap="result_VoteSubject_Map">
         select
@@ -39,13 +43,13 @@
         </where>
     </select>
 
-    <!-- 通过VoteSubject的id获得对应数据库中表的数据对象-->
+    &lt;!&ndash; 通过VoteSubject的id获得对应数据库中表的数据对象&ndash;&gt;
     <select id="selectVoteSubjectById" parameterType="java.lang.Integer" resultMap="result_VoteSubject_Map">
         select
         <include refid="vote_subject_Column"/>
         from vote_subject
         where vote_subject.vs_id = #{id}
-    </select>
+    </select>-->
 
     <!-- 将VoteSubject插入到对应数据库的表中,包括属性值为null的数据-->
 
@@ -97,4 +101,17 @@
         where vs_id=#{vsId}
     </update>
 
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="result_VoteSubject_Map">
+        SELECT
+            s.vs_id sid,
+            s.vs_title stitle,
+            s.vs_type stype,
+            o.vo_id oid,
+            o.vo_option ooption
+        FROM
+            vote_subject s
+        LEFT JOIN vote_option o ON s.vs_id = o.vs_id
+        WHERE
+            s.vs_id = #{id}
+    </select>
 </mapper>

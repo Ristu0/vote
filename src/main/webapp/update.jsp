@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
-<link type="text/css" rel="stylesheet" href="css/style.css"/>
-<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<%@taglib
+        uri="http://java.sun.com/jsp/jstl/core"
+        prefix='c' %>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
 <jsp:include page="comm/comm_jQueryUI_js.jsp"/>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/j.js"></script>
 <div id="index" class="content wrap">
@@ -14,38 +17,31 @@
                     <form action="modifySubject.action" name="" onsubmit="return validate();">
                         <%--<s:hidden name="subject.id" id="id"></s:hidden>--%>
                         <dl>
-                            <dt>投票内容：</dt>
-                            <dd>
-                                <%-- <s:textfield name="subject.title" title="填入投票内容" cssClass="input-text" id="voteTitle"></s:textfield>--%>
-                            </dd>
                             <dt>投票类型：</dt>
                             <dd>
-                                <input type="radio" name="subject.type" value="1"
-                                       <%--<s:if test="subject.type==1">--%>checked=checked<%--</s:if>--%>/>单选
-                                <input type="radio" name="subject.type" value="2"
-                                       <%--<s:if test="subject.type==2">--%>checked=checked<%--</s:if>--%>/>多选
+
+                                <c:if test="${requestScope.voteSubject.vsType==0}">
+                                    <input type="radio" name="subject.type" value="0" checked=checked/>单选
+                                    <input type="radio" name="subject.type" value="1"/>多选
+                                </c:if>
+                                <c:if test="${requestScope.voteSubject.vsType==1}">
+                                    <input type="radio" name="subject.type" value="0"/>单选
+                                    <input type="radio" name="subject.type" value="1" checked=checked/>多选
+                                </c:if>
+
+                            </dd>
+                            <dt>投票内容：</dt>
+                            <dd>
+                                <p>
+                                    <input name="options" class="input-text"
+                                           value="${requestScope.voteSubject.vsTitle}"/>
+                                </p>
                             </dd>
                             <dt>投票选项：</dt>
                             <dd id="voteoptions">
-                                <%--<s:if test="subject.options!=null&&subject.options.size>1">
-                                    <s:iterator value="subject.options" status="status">--%>
-                                <p>
-                                    <input name="options" class="input-text"
-                                           value="<%--<s:property value='name'/>--%>"/>
-                                </p>
-                                <%--</s:iterator>
-                            </s:if><s:elseif test="subject.options!=null && subject.options.size==1">
-                                <s:iterator value="subject.options" status="status">--%>
-                                <p>
-                                    <input name="options" class="input-text"
-                                           value="<%--<s:property value='name'/>--%>"/>
-                                </p>
-                                <%--</s:iterator>--%>
-                                <p><input type="text" name="options" class="input-text"/></p>
-                                <%--</s:elseif><s:else>--%>
-                                <p><input type="text" class="input-text" name="options"/></p>
-                                <p><input type="text" class="input-text" name="options"/></p>
-                                <%--</s:else>--%>
+                                <c:forEach items="${requestScope.voteSubject.voteOptions}" var="p">
+                                    <p><input type="text" name="options" class="input-text" value="${p.voOption}"/></p>
+                                </c:forEach>
                             </dd>
                             <dt></dt>
                             <dd class="button">

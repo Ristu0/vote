@@ -74,4 +74,6 @@ public interface VoteSubjectService {
      * @return
      */
     int updateNonEmptyVoteSubjectById(VoteSubject enti);
+
+    VoteSubject selectById(Integer id);
 }

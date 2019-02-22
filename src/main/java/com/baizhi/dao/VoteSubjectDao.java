@@ -74,4 +74,7 @@ public interface VoteSubjectDao {
      * @return
      */
     int updateNonEmptyVoteSubjectById(VoteSubject enti);
+
+    //根据id查询投票及包含的选项
+    VoteSubject selectById(Integer id);
 }

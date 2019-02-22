@@ -1,43 +1,17 @@
 package com.baizhi.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class VoteSubject {
     private Integer vsId;
     private String vsTitle;
     private Integer vsType;
-
-    public VoteSubject() {
-        super();
-    }
-
-    public VoteSubject(Integer vsId, String vsTitle, Integer vsType) {
-        super();
-        this.vsId = vsId;
-        this.vsTitle = vsTitle;
-        this.vsType = vsType;
-    }
-
-    public Integer getVsId() {
-        return this.vsId;
-    }
-
-    public void setVsId(Integer vsId) {
-        this.vsId = vsId;
-    }
-
-    public String getVsTitle() {
-        return this.vsTitle;
-    }
-
-    public void setVsTitle(String vsTitle) {
-        this.vsTitle = vsTitle;
-    }
-
-    public Integer getVsType() {
-        return this.vsType;
-    }
-
-    public void setVsType(Integer vsType) {
-        this.vsType = vsType;
-    }
-
+    private List<VoteOption> voteOptions;
 }
