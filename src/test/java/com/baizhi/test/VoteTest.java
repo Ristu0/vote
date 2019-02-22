@@ -17,4 +17,15 @@ public class VoteTest {
     public void test() {
         System.out.println(voteItemDao.selectAll());
     }
+
+    @Test
+    public void selectByIdTest() {
+        System.out.println(voteItemDao.selectById(1));
+    }
+
+    @Test
+    public void insertVote() {
+        Integer[] is = {2};
+        voteItemDao.insertVoteResult(4, 1, is);
+    }
 }

@@ -2,6 +2,7 @@ package com.baizhi.dao;
 
 import com.baizhi.entity.VoteDTO;
 import com.baizhi.entity.VoteItem;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -82,4 +83,14 @@ public interface VoteItemDao {
      * 展示首页的投票信息
      */
     List<VoteDTO> selectAll();
+
+    /**
+     * 根据投票项目的ID参与投票
+     */
+    VoteDTO selectById(@Param("id") Integer id);
+
+    /**
+     * 添加投票结果
+     */
+    void insertVoteResult(@Param("vsId") Integer vsId, @Param("userId") Integer userId, @Param("optionIds") Integer[] optionIds);
 }

@@ -50,4 +50,13 @@ public class VoteOption {
         this.voOrder = voOrder;
     }
 
+    @Override
+    public String toString() {
+        return "VoteOption{" +
+                "voId=" + voId +
+                ", vsId=" + vsId +
+                ", voOption='" + voOption + '\'' +
+                ", voOrder=" + voOrder +
+                '}';
+    }
 }

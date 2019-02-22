@@ -32,4 +32,14 @@ public class VoteServiceImpl implements VoteService {
     public List<VoteDTO> voteList() {
         return voteItemDao.selectAll();
     }
+
+    @Override
+    public VoteDTO getById(Integer id) {
+        return voteItemDao.selectById(id);
+    }
+
+    @Override
+    public void addVoteResult(Integer vsId, Integer userId, Integer[] optionIds) {
+        voteItemDao.insertVoteResult(vsId, userId, optionIds);
+    }
 }

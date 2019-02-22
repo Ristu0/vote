@@ -23,10 +23,19 @@
         <result property="vsType" column="vs_type"/>
         <result property="optionCount" column="optionCount"/>
         <result property="personCount" column="personCount"/>
+        <collection property="voteOptions" ofType="VoteOption">
+            <id property="voId" column="vo_id"/>
+            <result property="voOption" column="vo_option"/>
+            <result property="voOrder" column="vo_order"/>
+        </collection>
     </resultMap>
     <select id="selectAll" resultMap="voteMapper">
         select * from vote_subject s LEFT JOIN (select vs_id,COUNT(*) as optionCount from vote_option GROUP BY vs_id) t ON s.vs_id=t.vs_id LEFT JOIN (
         select vs_id,count(*) as personCount from vote_item GROUP BY vs_id) t1 ON s.vs_id =t1.vs_id
+    </select>
+    <select id="selectById" resultMap="voteMapper">
+        select * from vote_subject s LEFT JOIN (select vs_id,COUNT(*) as optionCount from vote_option GROUP BY vs_id) t ON s.vs_id=t.vs_id LEFT JOIN (
+        select vs_id,count(*) as personCount from vote_item GROUP BY vs_id) t1 ON s.vs_id =t1.vs_id LEFT JOIN vote_option o2 on s.vs_id =o2.vs_id where s.vs_id=#{id}
     </select>
     <!--获得类名为:VoteItem对应的数据库表的数据总行数 -->
     <select id="getVoteItemRowCount" resultType="java.lang.Long">
@@ -83,7 +92,13 @@
             <if test="voId != null">#{voId},</if>
         </trim>
     </insert>
-
+    <!--    添加投票结果  -->
+    <insert id="insertVoteResult">
+        insert into vote_item values
+        <foreach collection="optionIds" item="oId" separator=",">
+            (0,#{userId},#{vsId},#{oId})
+        </foreach>
+    </insert>
     <!-- 通过VoteItem的id将数据库表中对应的数据删除-->
     <delete id="deleteVoteItemById" parameterType="java.lang.Integer">
         delete from vote_item

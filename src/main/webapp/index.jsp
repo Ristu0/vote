@@ -37,7 +37,7 @@
                 fitColumns: true,//自适应宽度，防止水平滚动
                 striped: true,//隔行变色
                 columns: [[
-                    {field: 'id', title: 'id', hidden: 'true'},
+                    {field: 'vsId', title: 'vsId', hidden: 'true'},
                     {field: 'vsTitle', title: '投票标题', width: 300},
                     {field: 'optionCount', title: '选项数', align: 'right'},
                     {field: 'personCount', title: '投票人数', align: 'right', formatter: person_fm},
@@ -49,8 +49,8 @@
                 ]],
                 onClickCell: function (index, field) {
                     if (field == "opr") {
-                        var id = $(this).datagrid("getRows")[index].id;
-                        window.location.href = "vote.action?subject.id=" + id;
+                        var id = $(this).datagrid("getRows")[index].vsId;
+                        window.location.href = "${pageContext.request.contextPath}/vote/showVote?id=" + id;
                     }
                 }
             });
