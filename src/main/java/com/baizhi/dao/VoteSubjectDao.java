@@ -1,9 +1,11 @@
 package com.baizhi.dao;
 
 import com.baizhi.entity.VoteSubject;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface VoteSubjectDao {
     /**
      * 获得VoteSubject数据的总行数
@@ -74,6 +76,11 @@ public interface VoteSubjectDao {
      * @return
      */
     int updateNonEmptyVoteSubjectById(VoteSubject enti);
+
+    /**
+     * 添加一个新投票
+     */
+    void insertSub(VoteSubject voteSubject);
 
     //根据id查询投票及包含的选项
     VoteSubject selectById(Integer id);

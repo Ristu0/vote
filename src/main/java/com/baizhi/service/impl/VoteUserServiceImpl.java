@@ -5,9 +5,11 @@ import com.baizhi.entity.VoteUser;
 import com.baizhi.service.VoteUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
+@Transactional
 public class VoteUserServiceImpl implements VoteUserService {
     @Autowired
     private VoteUserDao voteUserDao;

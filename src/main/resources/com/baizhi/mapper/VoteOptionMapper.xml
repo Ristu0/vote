@@ -72,7 +72,14 @@
             <if test="voOrder != null">#{voOrder},</if>
         </trim>
     </insert>
-
+    <!--    批量添加投票任务的选项 -->
+    <insert id="insertOption">
+        INSERT INTO vote_option
+        VALUES
+        <foreach collection="options" item="option" separator=",">
+            (0,#{vsId},#{option},0)
+        </foreach>
+    </insert>
     <!-- 通过VoteOption的id将数据库表中对应的数据删除-->
     <delete id="deleteVoteOptionById" parameterType="java.lang.Integer">
         delete from vote_option
