@@ -6,7 +6,7 @@
     response.setDateHeader("Expires", 0);
     response.setContentType("text/html;charset=UTF-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -20,9 +20,40 @@
     --%>
     <script type="text/javascript" src="js/e.js"></script>
     <script type="text/javascript">
+        function person_fm(value) {
+            if (value == null) {
+                return 0;
+            }
+            return value;
+        }
         $(function () {
-            getTree();
-            indexGrid();
+            $('#mygrid').datagrid({
+                url: '${pageContext.request.contextPath}/vote/voteList',
+                rownumbers: true,
+                iconCls: 'icon-search',
+                pagination: true,//显示底部分页栏
+                pageSize: 10,//默认每页记录数，pagination参数为true时才有效
+                pageList: [5, 10, 15], //显示列表记录数的下拉框选项，pagination参数为true时才有效
+                fitColumns: true,//自适应宽度，防止水平滚动
+                striped: true,//隔行变色
+                columns: [[
+                    {field: 'id', title: 'id', hidden: 'true'},
+                    {field: 'vsTitle', title: '投票标题', width: 300},
+                    {field: 'optionCount', title: '选项数', align: 'right'},
+                    {field: 'personCount', title: '投票人数', align: 'right', formatter: person_fm},
+                    {
+                        field: 'opr', title: '操作', align: 'center', formatter: function () {
+                            return "<a herf='#' style='color:red;'>参加投票</a>";
+                        }
+                    }
+                ]],
+                onClickCell: function (index, field) {
+                    if (field == "opr") {
+                        var id = $(this).datagrid("getRows")[index].id;
+                        window.location.href = "vote.action?subject.id=" + id;
+                    }
+                }
+            });
             $("#gridSearch").click(function () {
                 var name = $('#keywords').val();
                 $('#mygrid').datagrid('load', {keywords: name});

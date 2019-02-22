@@ -1,5 +1,6 @@
 package com.baizhi.dao;
 
+import com.baizhi.entity.VoteDTO;
 import com.baizhi.entity.VoteItem;
 import org.springframework.stereotype.Repository;
 
@@ -76,4 +77,9 @@ public interface VoteItemDao {
      * @return
      */
     int updateNonEmptyVoteItemById(VoteItem enti);
+
+    /**
+     * 展示首页的投票信息
+     */
+    List<VoteDTO> selectAll();
 }
