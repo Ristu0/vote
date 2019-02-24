@@ -1,13 +1,16 @@
 package com.baizhi.entity;
-public class VoteUser {
+
+import java.io.Serializable;
+
+public class VoteUser implements Serializable {
     private Integer vuUserId;
     private String vuUserName;
     private String vuPassword;
     private Integer vuStatus;
+
     public VoteUser() {
         super();
     }
-
     public VoteUser(Integer vuUserId, String vuUserName, String vuPassword, Integer vuStatus) {
         super();
         this.vuUserId = vuUserId;
@@ -47,4 +50,13 @@ public class VoteUser {
         this.vuStatus = vuStatus;
     }
 
+    @Override
+    public String toString() {
+        return "VoteUser{" +
+                "vuUserId=" + vuUserId +
+                ", vuUserName='" + vuUserName + '\'' +
+                ", vuPassword='" + vuPassword + '\'' +
+                ", vuStatus=" + vuStatus +
+                '}';
+    }
 }

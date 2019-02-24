@@ -13,6 +13,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>注 册</title>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript">
+        function checkName() {
+            var name = $("#username").val();
+            if (name == ""||name==null) {
+                $("#passwordInfo").text("用户名不能为空！");
+            }else {
+                $("#submit").prop("disabled","");
+            }
+        };
+
+        function checkPwd() {
+            var pwd1 = $("#pwd1").val();
+            var pwd2 = $("#pwd2").val();
+            console.log(pwd2);
+            if (pwd1==pwd2){
+                $("#passwordInfo").text("");
+                $("#submit").prop("disabled","");
+            }else {
+                $("#passwordInfo").text("两次输入的密码不一致!");
+            }
+        };
+    </script>
 </head>
 <body>
 <div id="header" class="wrap">
@@ -30,22 +53,17 @@
 <div id="register" class="box">
     <h2>新用户注册</h2>
     <div class="content">
-        <form method="post" action="Register!register.action">
+        <form method="post" action="${pageContext.request.contextPath}/user/regist" id="checkForm">
             <dl>
-                <dt>用户ID：</dt>
-                <dd><input type="text" class="input-text" name="userId" value="<%--<s:property value='userId'/>--%>"/>
-                </dd>
                 <dt>用户名：</dt>
-                <dd><input type="text" class="input-text" name="userName"
-                           value="<%--<s:property value='userName'/>--%>"/></dd>
+                <dd><input id="username" type="text" class="input-text" name="vuUserName" onblur="checkName()"/></dd>
                 <dt>密码：</dt>
-                <dd><input type="password" class="input-text" name="password"
-                           value="<%--<s:property value='password'/>--%>"/></dd>
+                <dd><input id="pwd1" type="password" class="input-text" name="vuPassword" /></dd>
                 <dt>确认密码：</dt>
-                <dd><input type="password" class="input-text" name="confirmPassword"
-                           value="<%--<s:property value='confirmPassword'/>--%>"/></dd>
+                <dd><input  id="pwd2" type="password" class="input-text" name="confirmPassword" onKeyUp  ="checkPwd()" /></dd>
+                <span id="passwordInfo" style="color:red"></span>
                 <dt></dt>
-                <dd><input type="submit" class="input-button" name="submit" value=""/></dd>
+                <dd><input type="submit" value=" " class="input-button" name="submit" disabled="disabled" id="submit"/></dd>
             </dl>
         </form>
         <div class="error"><%--<s:fielderror/>--%></div>

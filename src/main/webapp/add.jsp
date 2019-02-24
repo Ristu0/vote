@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/j.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jqueryui/jquery.ui.resizable.js"></script>
 <div class="addVote">

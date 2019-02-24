@@ -53,7 +53,7 @@
 
     <insert id="insertVoteUser" parameterType="com.baizhi.entity.VoteUser">
         insert into vote_user(vu_user_id,vu_user_name,vu_password,vu_status) 
-        values(#{vuUserId},#{vuUserName},#{vuPassword},#{vuStatus})
+        values(0,#{vuUserName},#{vuPassword},0)
     </insert>
 
     <!-- 将VoteUser中属性值不为null的数据,插入到对应数据库的表中-->
@@ -105,4 +105,10 @@
         where vu_user_id=#{vuUserId}
     </update>
 
+    <select id="selectByName" parameterType="java.lang.String" resultMap="result_VoteUser_Map" >
+     select
+        <include refid="vote_user_Column"/>
+    from vote_user
+    where vote_user.vu_user_name = #{name}
+    </select>
 </mapper>

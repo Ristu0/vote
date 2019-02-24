@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
@@ -70,7 +71,7 @@
             <li><a href="#tabs-2">发布新投票</a></li>
             <li><a href="manage.jsp">维护</a></li>
             <li style="float:right;margin:5px 10px 0 0">
-                您好，<%--<s:property value="(#session['loginUser']).userName"/>--%></li>
+                您好，${sessionScope.user.vuUserName}</li>
         </ul>
         <div id="tabs-1">
             <div class="info">
