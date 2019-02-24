@@ -1,5 +1,6 @@
 package com.baizhi.test;
 
+import com.baizhi.dao.VoteItemDao;
 import com.baizhi.dao.VoteSubjectDao;
 import com.baizhi.entity.VoteSubject;
 import com.baizhi.service.VoteSubjectService;
@@ -16,6 +17,8 @@ public class VoteTest {
     private VoteSubjectDao voteSubjectDao;
     @Autowired
     private VoteSubjectService voteSubjectService;
+    @Autowired
+    private VoteItemDao voteItemDao;
 
     @Test
     public void contextLoads() {
