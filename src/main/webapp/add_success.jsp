@@ -19,7 +19,7 @@
 <div id="message" class="box wrap">
     <h2>提示信息</h2>
     <div class="content">
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜：操作成功！<a href="subject!list.action">返回查看投票列表&gt;&gt;</a></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜：操作成功！<a href="${pageContext.request.contextPath}/index.jsp">返回查看投票列表&gt;&gt;</a></p>
     </div>
 </div>
 <jsp:include page="footer.jsp"/>

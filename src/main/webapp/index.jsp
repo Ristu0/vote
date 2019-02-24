@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8" %>
+<%@page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
@@ -37,7 +38,7 @@
                 fitColumns: true,//自适应宽度，防止水平滚动
                 striped: true,//隔行变色
                 columns: [[
-                    {field: 'id', title: 'id', hidden: 'true'},
+                    {field: 'vsId', title: 'vsId', hidden: 'true'},
                     {field: 'vsTitle', title: '投票标题', width: 300},
                     {field: 'optionCount', title: '选项数', align: 'right'},
                     {field: 'personCount', title: '投票人数', align: 'right', formatter: person_fm},
@@ -49,8 +50,8 @@
                 ]],
                 onClickCell: function (index, field) {
                     if (field == "opr") {
-                        var id = $(this).datagrid("getRows")[index].id;
-                        window.location.href = "vote.action?subject.id=" + id;
+                        var id = $(this).datagrid("getRows")[index].vsId;
+                        window.location.href = "${pageContext.request.contextPath}/vote/showVote?id=" + id;
                     }
                 }
             });
@@ -70,7 +71,7 @@
             <li><a href="#tabs-2">发布新投票</a></li>
             <li><a href="manage.jsp">维护</a></li>
             <li style="float:right;margin:5px 10px 0 0">
-                您好，<%--<s:property value="(#session['loginUser']).userName"/>--%></li>
+                您好，${sessionScope.user.vuUserName}</li>
         </ul>
         <div id="tabs-1">
             <div class="info">

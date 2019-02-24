@@ -51,16 +51,14 @@
         </div>
         <div class="login">
             <h2>用户登录</h2>
-            <form method="post" action="">
+            <form method="post" action="${pageContext.request.contextPath}/user/login">
                 <dl id="loginBox">
                     <dt>用户名：</dt>
-                    <dd><input type="text" class="input-text" name="userId"
-                               value="<%--<s:property value='userId'/>--%>"/></dd>
+                    <dd><input type="text" class="input-text" name="username" value="<%--<s:property value='userId'/>--%>"/></dd>
                     <dt>密　码：</dt>
-                    <dd><input type="password" class="input-text" name="password"
-                               value="<%--<s:property value='password'/>--%>"/></dd>
+                    <dd><input type="password" class="input-text" name="password" value="<%--<s:property value='password'/>--%>"/></dd>
                     <dt></dt>
-                    <dd><input type="submit" class="input-button" value="登录"/> <a href="register.action">新用户注册</a></dd>
+                    <dd><input type="submit" class="input-button" value="登录"/> <a href="${pageContext.request.contextPath}/register.jsp">新用户注册</a></dd>
                 </dl>
             </form>
             <div class="error"><%--<s:actionerror/>--%></div>

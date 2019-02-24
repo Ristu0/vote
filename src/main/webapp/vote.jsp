@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%
     response.setHeader("Pragma", "No-cache");
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
     response.setContentType("text/html;charset=UTF-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -19,12 +19,25 @@
     <ul class="list">
         <li>
             <h4></h4>
-            <p class="info">共有 个选项，已有 个网友参与了投票。</p>
-            <form method="post" action="#" onsubmit="return validate();">
+            <p class="info">共有${requestScope.vote.optionCount} 个选项，已有${requestScope.vote.personCount} 个网友参与了投票。</p>
+            <form method="post" action="${pageContext.request.contextPath}/vote/addVoteResult"
+                  onsubmit="return validate();" id="voteResultForm">
+                <input type="hidden" name="vsId" value="${requestScope.vote.vsId}">
                 <ol>
-                    <li><input <%--<s:if test="subject.type==2">--%>type="checkbox"
-                               <%--</s:if><s:else>--%>type="radio"<%--</s:else>--%> name="options"
-                               value="<%--<s:property value='id'/>--%>"/><%--<s:property value="name"/>--%></li>
+                    <s:if test="${requestScope.vote.vsType==0}">
+                        <s:forEach var="vo" items="${requestScope.vote.voteOptions}">
+                            <li>
+                                <input type="checkbox" name="voId" value="${vo.voId}">${vo.voOption}
+                            </li>
+                        </s:forEach>
+                    </s:if>
+                    <s:if test="${requestScope.vote.vsType==1}">
+                        <s:forEach var="vo" items="${requestScope.vote.voteOptions}">
+                            <li>
+                                <input type="radio" name="voId" value="${vo.voId}">${vo.voOption}
+                            </li>
+                        </s:forEach>
+                    </s:if>
                 </ol>
                 <p class="voteView">
                     <button>投票</button>
@@ -45,6 +58,9 @@
         $(".voteView").children("button").button({
             icons: {
                 primary: "ui-icon-locked"
+            },
+            onClick: function () {
+                $("#voteResultForm").submit();
             }
         }).next().button({
             icons: {
@@ -54,7 +70,7 @@
     })
 
     function validate() {
-        var options = $("input[name='options']:checked").val();
+        var options = $("input[name='voId']:checked").val();
         if (options == null || options == "undefined" || options.length == 0) {
             alert("请至少选择一个投票项！");
             return false;
