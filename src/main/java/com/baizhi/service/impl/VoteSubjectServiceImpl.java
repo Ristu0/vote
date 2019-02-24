@@ -15,6 +15,7 @@ import java.util.List;
 public class VoteSubjectServiceImpl implements VoteSubjectService {
     @Autowired
     private VoteSubjectDao voteSubjectDao;
+
     @Autowired
     private VoteOptionDao voteOptionDao;
 
