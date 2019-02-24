@@ -1,10 +1,14 @@
 package com.baizhi.service;
 
+import com.baizhi.entity.SubjectDTO;
 import com.baizhi.entity.VoteSubject;
 
 import java.util.List;
 
 public interface VoteSubjectService {
+
+    SubjectDTO selectSubById(Integer id);
+
     /**
      * 获得VoteSubject数据的总行数
      *

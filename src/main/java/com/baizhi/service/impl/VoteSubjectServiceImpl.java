@@ -1,7 +1,10 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.dao.SubjectDTODao;
 import com.baizhi.dao.VoteOptionDao;
 import com.baizhi.dao.VoteSubjectDao;
+import com.baizhi.entity.OptionDTO;
+import com.baizhi.entity.SubjectDTO;
 import com.baizhi.entity.VoteSubject;
 import com.baizhi.service.VoteSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,16 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
     private VoteSubjectDao voteSubjectDao;
     @Autowired
     private VoteOptionDao voteOptionDao;
+    @Autowired
+    private SubjectDTODao subjectDTODao;
 
+    @Override
+    public SubjectDTO selectSubById(Integer id){
+        SubjectDTO subjectDTO = subjectDTODao.selectById(id);
+        List<OptionDTO> dtos = subjectDTODao.selectOpById(id);
+        subjectDTO.setOptionDTOS(dtos);
+        return subjectDTO;
+    }
     @Override
     public long getVoteSubjectRowCount() {
         return voteSubjectDao.getVoteSubjectRowCount();

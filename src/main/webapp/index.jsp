@@ -59,6 +59,39 @@
                 var name = $('#keywords').val();
                 $('#mygrid').datagrid('load', {keywords: name});
             });
+
+            getTree();
+            $("#gridSearch").click(function () {
+                var name = $('#keywords').val();
+                $('#mygrid').datagrid({
+                    url: '${pageContext.request.contextPath}/votesubject/search?name=' + name,
+                    rownumbers: true,
+                    iconCls: 'icon-search',
+                    pagination: true,//显示底部分页栏
+                    pageSize: 10,//默认每页记录数，pagination参数为true时才有效
+                    pageList: [5, 10, 15], //显示列表记录数的下拉框选项，pagination参数为true时才有效
+                    fitColumns: true,//自适应宽度，防止水平滚动
+                    striped: true,//隔行变色
+                    columns: [[
+                        {field: 'vsId', title: 'id', hidden: 'true'},
+                        {field: 'vsTitle', title: '投票标题', width: 300},
+                        {
+                            field: 'vsType', title: '投票类别', align: 'right', formatter: function (vsType) {
+                                if (vsType == 0) {
+                                    return "单选"
+                                } else return "多选";
+                            }
+                        },
+                        {field: 'participants', title: '投票人数', align: 'right'},
+                        {
+                            field: 'opr', title: '操作', align: 'center', formatter: function () {
+                                return "<a href='#' style='color:red;'>参加投票</a>";
+                            }
+                        }
+                    ]],
+
+                });
+            });
         });
     </script>
 </head>

@@ -27,7 +27,7 @@ public class VoteController {
 
     @RequestMapping("voteList")
     @ResponseBody
-    public Object voteList(HttpServletRequest request) {
+    public Object voteList() {
         List<VoteDTO> voteDTOS = voteService.voteList();
         return voteDTOS;
     }
@@ -48,4 +48,5 @@ public class VoteController {
         voteService.addVoteResult(vsId, vuUserId, voId);
         return "vote_success";
     }
+
 }

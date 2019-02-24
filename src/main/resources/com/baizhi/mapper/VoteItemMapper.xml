@@ -33,6 +33,13 @@
         select * from vote_subject s LEFT JOIN (select vs_id,COUNT(*) as optionCount from vote_option GROUP BY vs_id) t ON s.vs_id=t.vs_id LEFT JOIN (
         select vs_id,count(*) as personCount from vote_item GROUP BY vs_id) t1 ON s.vs_id =t1.vs_id
     </select>
+
+    <select id="selectByName" resultMap="voteMapper">
+        select * from vote_subject s LEFT JOIN (select vs_id,COUNT(*) as optionCount from vote_option GROUP BY vs_id) t ON s.vs_id=t.vs_id LEFT JOIN (
+            select vs_id,count(*) as personCount from vote_item GROUP BY vs_id) t1 ON s.vs_id =t1.vs_id
+        where vs_title like "%${name}%"
+    </select>
+
     <select id="selectById" resultMap="voteMapper">
         select * from vote_subject s LEFT JOIN (select vs_id,COUNT(*) as optionCount from vote_option GROUP BY vs_id) t ON s.vs_id=t.vs_id LEFT JOIN (
         select vs_id,count(*) as personCount from vote_item GROUP BY vs_id) t1 ON s.vs_id =t1.vs_id LEFT JOIN vote_option o2 on s.vs_id =o2.vs_id where s.vs_id=#{id}

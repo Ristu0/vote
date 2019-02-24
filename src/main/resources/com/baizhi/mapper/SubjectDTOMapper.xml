@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.SubjectDTODao">
+    <!-- VoteSubject的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <!--    获得投票项目列表信息  -->
+    <resultMap id="voteMapper" type="SubjectDTO">
+        <id property="vsId" column="vs_id"/>
+        <result property="vsTitle" column="vs_title"/>
+        <result property="vsType" column="vs_type"/>
+        <result property="optionCount" column="optionCount"/>
+        <result property="personCount" column="personCount"/>
+        <collection property="optionDTOS" ofType="OptionDTO">
+            <id property="voId" column="vo_id"/>
+            <result property="voOption" column="vo_option"/>
+            <result property="voOrder" column="vo_order"/>
+            <result property="count" column="num"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="OptionDTO_Map" type="com.baizhi.entity.OptionDTO">
+        <id column="vo_id" property="voId"/>
+        <result column="vs_id" property="vsId"/>
+        <result column="vo_option" property="voOption"/>
+        <result column="vo_order" property="voOrder"/>
+        <result column="num" property="count"/>
+    </resultMap>
+    <!-- 数据库中表名为:vote_subject的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
+    <select id="selectById" resultMap="voteMapper">
+        select * from vote_subject s LEFT JOIN (select vs_id,COUNT(*) as optionCount from vote_option GROUP BY vs_id) t ON s.vs_id=t.vs_id LEFT JOIN (
+            select vs_id,count(*) as personCount from vote_item GROUP BY vs_id) t1 ON s.vs_id =t1.vs_id LEFT JOIN vote_option o2 on s.vs_id =o2.vs_id where s.vs_id=#{id}
+    </select>
+    <select id="selectOpById" resultMap="OptionDTO_Map">
+        select vote_option.vo_id as vo_id
+                ,vote_option.vs_id as vs_id
+                ,vote_option.vo_option as vo_option
+                ,vote_option.vo_order as vo_order
+                ,v2.num as num
+        FROM vote_option LEFT JOIN (select vo_id,count(*) as num
+                                    from vote_item
+                                    GROUP BY vo_id) v2 ON vote_option.vo_id=v2.vo_id
+        WHERE vote_option.vs_id=1
+    </select>
+</mapper>

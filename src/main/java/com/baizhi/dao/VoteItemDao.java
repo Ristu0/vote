@@ -83,6 +83,7 @@ public interface VoteItemDao {
      * 展示首页的投票信息
      */
     List<VoteDTO> selectAll();
+    List<VoteDTO> selectByName(@Param("name") String name);
 
     /**
      * 根据投票项目的ID参与投票

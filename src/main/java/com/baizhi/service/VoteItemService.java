@@ -1,10 +1,13 @@
 package com.baizhi.service;
 
+import com.baizhi.entity.VoteDTO;
 import com.baizhi.entity.VoteItem;
-
 import java.util.List;
 
 public interface VoteItemService {
+
+
+    List<VoteDTO> selectByName(String name);
     /**
      * 获得VoteItem数据的总行数
      *

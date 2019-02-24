@@ -6,6 +6,7 @@
     response.setDateHeader("Expires", 0);
     response.setContentType("text/html;charset=UTF-8");
 %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,18 +21,21 @@
     <h2>查看投票</h2>
     <ul class="list">
         <li>
-            <h4></h4>
-            <p class="info">共有 个选项，已有 个网友参与了投票。</p>
+            <h4>${requestScope.subjectDTO.vsTitle}</h4>
+            <p class="info">共有 ${requestScope.subjectDTO.optionCount}个选项，已有${requestScope.subjectDTO.personCount}个网友参与了投票。</p>
             <ol>
-                <%--<s:iterator value="subject.options" status="status"> --%>
-                <li><%--<s:property value="option.name"/>--%>
+
+                <c:forEach items="${requestScope.subjectDTO.optionDTOS}" var="option">
+
+                <li>${option.voOption}
                     <div class="rate">
-                        <div class="ratebg" data="<%--<s:property value='statPercent[id]'/>--%>"></div>
-                        <p><%--<s:property value="stat[id]"/>--%> 票 <span>(<%--<s:property value="statPercent[id]"/>--%>%)</span>
+                        <div class="ratebg" data="${option.count/requestScope.count*100}"></div>
+                        <p>${option.count}票 <span>(${option.count/requestScope.count*100}%)</span>
                         </p>
                     </div>
                 </li>
-                <%--</s:iterator>	--%>
+
+                </c:forEach>
             </ol>
             <div class="goback"><a href="subject!list.action?subject.id=/*<s:property value='subject.id'/>*/">返回投票列表</a>
             </div>

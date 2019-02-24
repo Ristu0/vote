@@ -1,6 +1,7 @@
 package com.baizhi.service.impl;
 
 import com.baizhi.dao.VoteItemDao;
+import com.baizhi.entity.VoteDTO;
 import com.baizhi.entity.VoteItem;
 import com.baizhi.service.VoteItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class VoteItemServiceImpl implements VoteItemService {
     @Autowired
     private VoteItemDao voteItemDao;
 
+    @Override
+    public List<VoteDTO> selectByName(String name){
+        List<VoteDTO> list = voteItemDao.selectByName(name);
+        return list;
+    }
     @Override
     public long getVoteItemRowCount() {
         return voteItemDao.getVoteItemRowCount();
