@@ -1,5 +1,6 @@
 package com.baizhi.service.impl;
 
+import com.baizhi.dao.VoteOptionDao;
 import com.baizhi.dao.VoteSubjectDao;
 import com.baizhi.entity.VoteSubject;
 import com.baizhi.service.VoteSubjectService;
@@ -14,6 +15,8 @@ import java.util.List;
 public class VoteSubjectServiceImpl implements VoteSubjectService {
     @Autowired
     private VoteSubjectDao voteSubjectDao;
+    @Autowired
+    private VoteOptionDao voteOptionDao;
 
     @Override
     public long getVoteSubjectRowCount() {
@@ -64,6 +67,13 @@ public class VoteSubjectServiceImpl implements VoteSubjectService {
     public VoteSubject selectById(Integer id) {
         VoteSubject voteSubject = voteSubjectDao.selectById(id);
         return voteSubject;
+    }
+
+    @Override
+    public void updateSubject(VoteSubject subject, String[] options) {
+        if (options != null) {
+            voteOptionDao.insertOption(options, subject.getVsId());
+        }
     }
 
     public VoteSubjectDao getVoteSubjectDao() {

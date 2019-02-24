@@ -82,4 +82,6 @@ public interface VoteOptionDao {
      * 添加一个投票任务的选项
      */
     void insertOption(@Param("options") String[] options, @Param("vsId") Integer vsId);
+
+    int selectCount(int id);
 }

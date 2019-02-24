@@ -111,5 +111,8 @@
         </set>
         where vo_id=#{voId}
     </update>
+    <select id="selectCount" resultType="int">
+       select count(*) from vote_option where vs_id =#{id}
+    </select>
 
 </mapper>

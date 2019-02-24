@@ -76,4 +76,6 @@ public interface VoteSubjectService {
     int updateNonEmptyVoteSubjectById(VoteSubject enti);
 
     VoteSubject selectById(Integer id);
+
+    void updateSubject(VoteSubject subject, String[] options);
 }

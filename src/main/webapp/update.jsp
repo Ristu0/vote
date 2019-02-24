@@ -14,40 +14,43 @@
         <div id="message" class="box wrap">
             <div class="content">
                 <div class="vote-content">
-                    <form action="modifySubject.action" name="" onsubmit="return validate();">
+                    <form action="${pageContext.request.contextPath}/votesubject/updateVote" name=""
+                          onsubmit="return validate();">
                         <%--<s:hidden name="subject.id" id="id"></s:hidden>--%>
                         <dl>
                             <dt>投票类型：</dt>
                             <dd>
 
                                 <c:if test="${requestScope.voteSubject.vsType==0}">
-                                    <input type="radio" name="subject.type" value="0" checked=checked/>单选
-                                    <input type="radio" name="subject.type" value="1"/>多选
+                                    <input type="radio" name="vsType" value="0" checked=checked/>单选
+                                    <input type="radio" name="vsType" value="1"/>多选
                                 </c:if>
                                 <c:if test="${requestScope.voteSubject.vsType==1}">
-                                    <input type="radio" name="subject.type" value="0"/>单选
-                                    <input type="radio" name="subject.type" value="1" checked=checked/>多选
+                                    <input type="radio" name="vsType" value="0"/>单选
+                                    <input type="radio" name="vsType" value="1" checked=checked/>多选
                                 </c:if>
 
                             </dd>
                             <dt>投票内容：</dt>
                             <dd>
                                 <p>
-                                    <input name="options" class="input-text"
+                                    <input hidden="hidden" name="vsId" value="${requestScope.voteSubject.vsId}"/>
+                                    <input readonly="readonly" name="vsTitle" class="input-text"
                                            value="${requestScope.voteSubject.vsTitle}"/>
                                 </p>
                             </dd>
                             <dt>投票选项：</dt>
                             <dd id="voteoptions">
                                 <c:forEach items="${requestScope.voteSubject.voteOptions}" var="p">
-                                    <p><input type="text" name="options" class="input-text" value="${p.voOption}"/></p>
+                                    <p><input readonly="readonly" type="text" name="option" class="input-text"
+                                              value="${p.voOption}"/></p>
                                 </c:forEach>
                             </dd>
                             <dt></dt>
                             <dd class="button">
                                 <input type="image" src="${pageContext.request.contextPath}/images/button_submit.gif"/>
                                 <a id="addOption" href="javascript:void(0);">增加选项</a>
-                                <a href="subject!list.action">取消操作</a>
+                                <a href="${pageContext.request.contextPath}/index.jsp">取消操作</a>
                             </dd>
                         </dl>
                     </form>
@@ -86,18 +89,18 @@
     }
 
     function validateTitle(v) {
-        if (null == v || '' == v) {
-            $("#dialog-message").dialog({
-                modal: true,
-                buttons: {
-                    Ok: function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-            return false;
-        }
-        return true;
+        /* if (null == v || '' == v) {
+             $("#dialog-message").dialog({
+                 modal: true,
+                 buttons: {
+                     Ok: function () {
+                         $(this).dialog("close");
+                     }
+                 }
+             });
+             return false;
+         }
+         return true;*/
     }
 
     /*
